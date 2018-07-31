@@ -5,7 +5,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.List;
 
 public class ChatListener implements Listener {
@@ -23,7 +22,6 @@ public class ChatListener implements Listener {
             return;
 
         List<String> ignoreUsers = discordia.getConfig().getStringList("ignore_mc_users");
-        discordia.getLogger().info(Arrays.toString(ignoreUsers.toArray()));
 
         if (ignoreUsers.contains(event.getPlayer().getName()))
             return;
