@@ -1,0 +1,48 @@
+# +-----------------------------------------------------------------------+
+# | Discordia plugin made by Ryozuki <https://github.com/Ryozuki>         |
+# | Discord: Ryozuki#3508                                                 |
+# | If you want you can donate me here: https://www.paypal.me/EdgarLuque  |
+# +-----------------------------------------------------------------------+
+
+# Permissions
+# discordia.chat.send: Only players with this permission will send messages to discord.
+# discordia.commands: (Recommended only for admins) Allows the usage of discordia commands (See /discordia).
+
+# Configuration
+
+# This guide is recommended to anyone who doesn't know how to setup a discord bot:
+# https://github.com/Chikachi/DiscordIntegration/wiki/How-to-get-a-token-and-channel-ID-for-Discord
+
+# The bot token, you can create a discord bot and get its token here:
+# https://discordapp.com/developers/applications/
+# REQUIRED!
+token: "<discord bot token>"
+
+# Channel ids (text only) from which to forward the messages to minecraft.
+channels:
+- "<channel id>"
+
+# The discord channel where minecraft messages will be sent. (Only 1 channel)
+send_channel: "<channel id>"
+
+# Format of the message printed on minecraft.
+# {0} = Name
+# {1} = The message
+# {2} = Discord Server (Guild) Name
+# {3} = Discord Channel Name
+
+format: "&f[&9Discord &f- &b{2}&f]&r {&f{3}&r} &r<{0}>: {1}"
+format_discord: "<{0}>: {1}"
+
+# Whether to send output from discord bots to minecraft chat.
+ignore_bots: true
+
+# Ignore any user from minecraft by adding his name in this list.
+ignore_mc_users: []
+
+# List of discord user ids to be ignored.
+ignore_discord_users: []
+
+# Ignore any message that starts with any string from this list
+ignore_starts_with:
+- "!"
