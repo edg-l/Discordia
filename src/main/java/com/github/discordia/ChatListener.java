@@ -27,6 +27,7 @@ public class ChatListener implements Listener {
             return;
 
         String format = discordia.getConfig().getString("format_discord");
+
         String message = event.getMessage();
         List<String> ignoreStartWith = discordia.getConfig().getStringList("ignore_starts_with");
 
@@ -35,7 +36,7 @@ public class ChatListener implements Listener {
                 return;
         }
 
-        String messageFormatted = MessageFormat.format(format, event.getPlayer().getDisplayName(), message);
+        String messageFormatted = MessageFormat.format(format, event.getPlayer().getName(), message);
         discordia.sendToDiscord(messageFormatted);
     }
 }
