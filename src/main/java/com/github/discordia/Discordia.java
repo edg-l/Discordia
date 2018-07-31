@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.annotation.plugin.author.Author;
 
 import javax.security.auth.login.LoginException;
 
-@Plugin(name = "Discordia", version = "1.0.0")
+@Plugin(name = "Discordia", version = "1.0.1")
 @Description("Creates a bridge between discord and minecraft chat.")
 @Author("Ryozuki")
 @Permission(name = "discordia.chat.send",
