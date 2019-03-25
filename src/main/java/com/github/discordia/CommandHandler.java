@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-@org.bukkit.plugin.java.annotation.command.Command(name = "discordia", permission = "discordia.commands")
+
 public class CommandHandler implements CommandExecutor {
     private Discordia discordia;
 

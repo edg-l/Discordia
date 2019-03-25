@@ -6,7 +6,7 @@
 
     <groupId>com.github.ryozuki</groupId>
     <artifactId>Discordia</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 
     <repositories>
         <repository>
@@ -24,19 +24,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13-R0.1-SNAPSHOT</version>
+            <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>plugin-annotations</artifactId>
-            <scope>provided</scope>
-            <version>1.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>3.7.1_385</version>
+            <version>3.8.3_462</version>
         </dependency>
 
         <!-- [ JDA Dependencies ]-->
@@ -55,7 +49,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.8.1</version>
+            <version>3.13.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -72,7 +66,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20180130</version>
+            <version>20160810</version>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -104,6 +98,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>

@@ -5,20 +5,9 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.annotation.permission.Permission;
-import org.bukkit.plugin.java.annotation.plugin.Description;
-import org.bukkit.plugin.java.annotation.plugin.Plugin;
-import org.bukkit.plugin.java.annotation.plugin.author.Author;
 
 import javax.security.auth.login.LoginException;
 
-@Plugin(name = "Discordia", version = "1.0.1")
-@Description("Creates a bridge between discord and minecraft chat.")
-@Author("Ryozuki")
-@Permission(name = "discordia.chat.send",
-        desc = "Only players with this permission will send messages to discord.")
-@Permission(name = "discordia.commands",
-        desc = "Allows the usage of discordia commands.")
 
 public class Discordia extends JavaPlugin {
     JDA jda;
@@ -32,6 +21,7 @@ public class Discordia extends JavaPlugin {
         getCommand("discordia").setExecutor(new CommandHandler(this));
         getCommand("discordia").setTabCompleter(new AutoCompleter());
 
+
         connectDiscord();
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
     }
@@ -41,7 +31,7 @@ public class Discordia extends JavaPlugin {
             jda = new JDABuilder(AccountType.BOT)
                     .setToken(this.getConfig().getString("token"))
                     .addEventListener(new DiscordListener(this))
-                    .buildBlocking();
+                    .build().awaitReady();
             this.getLogger().info("Connected to discord.");
             Stopped = false;
             return true;
