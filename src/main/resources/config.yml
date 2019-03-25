@@ -30,7 +30,7 @@ send_channel: "<channel id>"
 # {1} = The message
 # {2} = Discord Server (Guild) Name
 # {3} = Discord Channel Name
-format: "&f[&9Discord &f- &b{2}&f]&r {&f{3}&r} &r<{0}>: {1}"
+format: "&f[&9Discord &f- &b{2}&f]&r &f#{3} &r<{0}>: {1}"
 
 # Format of the messages printed on discord.
 # {0} = Player name

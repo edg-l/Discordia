@@ -1,0 +1,22 @@
+main: com.github.discordia.Discordia
+name: Discordia
+version: 1.1.0
+author: Ryozuki
+description: Creates a bridge between discord and minecraft chat.
+permissions:
+  discordia.chat.send:
+    description: Only players with this permission will send messages to discord.
+    default: true
+  discordia.commands:
+    description: Allows the usage of discordia commands.
+commands:
+  discordia:
+    permission: discordia.commands
+  discordia reload:
+    permission: discordia.commands
+  discordia disable:
+    permission: discordia.commands
+  discordia enable:
+    permission: discordia.commands
+  discordia reconnect:
+    permission: discordia.commands

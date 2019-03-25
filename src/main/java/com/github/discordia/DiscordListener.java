@@ -45,10 +45,10 @@ public class DiscordListener extends ListenerAdapter {
             String format = ChatColor.translateAlternateColorCodes('&', discordia.getConfig().getString("format"));
             String formatted = MessageFormat.format(
                     format,
-                    event.getMember().getEffectiveName(),
+                    event.getMember().getUser().getName(),
                     message,
                     event.getGuild().getName(),
-                    event.getTextChannel().getName()
+                    event.getChannel().getName()
             );
             discordia.getServer().broadcastMessage(formatted);
         }
