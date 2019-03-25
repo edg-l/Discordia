@@ -49,3 +49,5 @@ ignore_discord_users: []
 # Ignore any message that starts with any string from this list
 ignore_starts_with:
 - "!"
+
+command_prefix: !

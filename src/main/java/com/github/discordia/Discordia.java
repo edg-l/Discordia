@@ -45,7 +45,7 @@ public class Discordia extends JavaPlugin {
     void disconnectDiscord() {
         Stopped = true;
         if (jda != null) {
-            jda.shutdownNow();
+            jda.shutdown();
         }
     }
 
