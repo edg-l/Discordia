@@ -1,6 +1,6 @@
 main: com.github.discordia.Discordia
 name: Discordia
-version: 1.1.0
+version: 1.2.1
 author: Ryozuki
 description: Creates a bridge between discord and minecraft chat.
 permissions:
@@ -9,6 +9,10 @@ permissions:
     default: true
   discordia.commands:
     description: Allows the usage of discordia commands.
+    default: op
+  discordia.mention:
+    description: Wether or not the user can @mention people on discord.
+    default: true
 commands:
   discordia:
     permission: discordia.commands
