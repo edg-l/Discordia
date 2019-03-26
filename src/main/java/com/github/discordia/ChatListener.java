@@ -40,11 +40,13 @@ public class ChatListener implements Listener {
                 return;
         }
 
-        Matcher m = discordPattern.matcher(message);
-        while(m.find()) {
-            List<User> users = discordia.jda.getUsersByName(m.group(1).substring(1), true);
-            if(!users.isEmpty()) {
-                message = m.replaceAll(users.get(0).getAsMention());
+        if (event.getPlayer().hasPermission("discordia.mention")) {
+            Matcher m = discordPattern.matcher(message);
+            while (m.find()) {
+                List<User> users = discordia.jda.getUsersByName(m.group(1).substring(1), true);
+                if (!users.isEmpty()) {
+                    message = m.replaceAll(users.get(0).getAsMention());
+                }
             }
         }
 
