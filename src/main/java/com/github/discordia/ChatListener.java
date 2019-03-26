@@ -1,14 +1,18 @@
 package com.github.discordia;
 
+import net.dv8tion.jda.core.entities.User;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ChatListener implements Listener {
     private Discordia discordia;
+    Pattern discordPattern = Pattern.compile("(@[^# ]{2,32})");
 
     ChatListener(Discordia discordia) {
         this.discordia = discordia;
@@ -34,6 +38,14 @@ public class ChatListener implements Listener {
         for (String x : ignoreStartWith) {
             if (message.startsWith(x))
                 return;
+        }
+
+        Matcher m = discordPattern.matcher(message);
+        while(m.find()) {
+            List<User> users = discordia.jda.getUsersByName(m.group(1).substring(1), true);
+            if(!users.isEmpty()) {
+                message = m.replaceAll(users.get(0).getAsMention());
+            }
         }
 
         String messageFormatted = MessageFormat.format(format, event.getPlayer().getName(), message);

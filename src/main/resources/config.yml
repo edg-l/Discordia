@@ -50,4 +50,5 @@ ignore_discord_users: []
 ignore_starts_with:
 - "!"
 
+# Used for discord commands.
 command_prefix: !
