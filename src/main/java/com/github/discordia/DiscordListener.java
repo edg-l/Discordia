@@ -50,6 +50,8 @@ public class DiscordListener extends ListenerAdapter {
                             players.append(" ");
                         }
                         event.getChannel().sendMessage("Current players: " + players).queue();
+                    case "help":
+                        event.getChannel().sendMessage("Available commands: help, players").queue();
                 }
                 return;
             }
