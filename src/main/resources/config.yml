@@ -35,6 +35,9 @@ format: "&f[&9Discord &f- &b{2}&f]&r &f#{3} &r<{0}>: {1}"
 # Format of the messages printed on discord.
 # {0} = Player name
 # {1} = The message
+# If vault and a chat provider are present you can use:
+# {2} = Player prefix
+# {3} = Player suffix
 format_discord: "<{0}>: {1}"
 
 # Whether to send output from discord bots to minecraft chat.
@@ -50,6 +53,12 @@ ignore_discord_users: []
 ignore_starts_with:
 - "!"
 
-enable_discord_commands: true
+# Minecraft events, whether to forward them to discord or not.
+enable_join_event: true
+enable_leave_event: true
+enable_kick_event: true
+enable_player_death_event: true
+
 # Used for discord commands.
+enable_discord_commands: true
 command_prefix: !

@@ -7,12 +7,6 @@ import org.bukkit.command.CommandSender;
 
 
 public class CommandHandler implements CommandExecutor {
-    private Discordia discordia;
-
-    CommandHandler(Discordia discordia) {
-        this.discordia = discordia;
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String commands = "&l&9Commands are&r: &3reload&r, &3disable&r, &3enable&r, &3reconnect&r";
@@ -24,23 +18,23 @@ public class CommandHandler implements CommandExecutor {
 
         switch (subCommand) {
             case "reload":
-                discordia.reloadConfig();
+                Discordia.getInstance().reloadConfig();
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "[&l&5Discordia&r] Configuration &6reloaded&r."));
                 return true;
             case "disable":
-                discordia.Stopped = true;
+                Discordia.getInstance().setStopped(true);
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "[&l&5Discordia&r] Bridge &4stopped&r."));
                 break;
             case "enable":
-                discordia.Stopped = false;
+                Discordia.getInstance().setStopped(false);
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "[&l&5Discordia&r] Bridge &aenabled&r."));
                 break;
             case "reconnect":
-                discordia.disconnectDiscord();
-                if (discordia.connectDiscord()) {
+                Discordia.getInstance().disconnectDiscord();
+                if (Discordia.getInstance().connectDiscord()) {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                             "[&l&5Discordia&r] &aReconnected&r."));
                 } else {
