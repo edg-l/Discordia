@@ -19,13 +19,13 @@ public class DiscordListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (discordia.Stopped)
+        if (discordia.isStopped())
             return;
 
         List<String> channelIDs = discordia.getConfig().getStringList("channels");
 
         if (event.isFromType(ChannelType.TEXT) && channelIDs.contains(event.getTextChannel().getId())
-                && event.getMessage().getAuthor() != discordia.jda.getSelfUser()) {
+                && event.getMessage().getAuthor() != discordia.getJDA().getSelfUser()) {
 
             if (discordia.getConfig().getBoolean("ignore_bots") && event.getAuthor().isBot())
                 return;

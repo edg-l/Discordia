@@ -6,7 +6,7 @@
 
     <groupId>com.github.ryozuki</groupId>
     <artifactId>Discordia</artifactId>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
 
     <repositories>
         <repository>
@@ -17,6 +17,10 @@
             <id>jcenter</id>
             <name>jcenter-bintray</name>
             <url>http://jcenter.bintray.com</url>
+        </repository>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
     </repositories>
 
@@ -31,6 +35,12 @@
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
             <version>3.8.3_462</version>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- [ JDA Dependencies ]-->

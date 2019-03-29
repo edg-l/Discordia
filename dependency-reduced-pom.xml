@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.ryozuki</groupId>
   <artifactId>Discordia</artifactId>
-  <version>1.2.1</version>
+  <version>1.3.0</version>
   <build>
     <plugins>
       <plugin>
@@ -39,6 +39,10 @@
       <name>jcenter-bintray</name>
       <url>http://jcenter.bintray.com</url>
     </repository>
+    <repository>
+      <id>vault-repo</id>
+      <url>http://nexus.hc.to/content/repositories/pub_releases</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -70,6 +74,18 @@
         <exclusion>
           <artifactId>snakeyaml</artifactId>
           <groupId>org.yaml</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.milkbowl.vault</groupId>
+      <artifactId>VaultAPI</artifactId>
+      <version>1.7</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>bukkit</artifactId>
+          <groupId>org.bukkit</groupId>
         </exclusion>
       </exclusions>
     </dependency>
