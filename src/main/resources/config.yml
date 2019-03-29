@@ -50,5 +50,6 @@ ignore_discord_users: []
 ignore_starts_with:
 - "!"
 
+enable_discord_commands: true
 # Used for discord commands.
 command_prefix: !
