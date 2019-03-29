@@ -12,7 +12,7 @@ permissions:
     description: Allows the usage of discordia commands.
     default: op
   discordia.mention:
-    description: Wether or not the user can @mention people on discord.
+    description: Whether or not the user can @mention people on discord.
     default: true
 commands:
   discordia:
