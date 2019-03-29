@@ -36,28 +36,29 @@ public class DiscordListener extends ListenerAdapter {
                 return;
 
             String message = event.getMessage().getContentDisplay();
-            String commandPrefix = discordia.getConfig().getString("command_prefix");
-            if(commandPrefix == null)
-                commandPrefix = "!";
+            if(discordia.getConfig().getBoolean("enable_discord_commands")) {
+                String commandPrefix = discordia.getConfig().getString("command_prefix");
+                if(commandPrefix == null)
+                    commandPrefix = "!";
 
-            if(message.startsWith(commandPrefix)) {
-                String command = message.substring(commandPrefix.length());
-                switch (command) {
-                    case "players":
-                        StringBuilder players = new StringBuilder();
-                        for(Player ply: discordia.getServer().getOnlinePlayers()) {
-                            players.append(ply.getName());
-                            players.append(" ");
-                        }
-                        event.getChannel().sendMessage("Current players: " + players).queue();
-                        break;
-                    case "help":
-                        event.getChannel().sendMessage("Available commands: help, players").queue();
-                        break;
+                if(message.startsWith(commandPrefix)) {
+                    String command = message.substring(commandPrefix.length());
+                    switch (command) {
+                        case "players":
+                            StringBuilder players = new StringBuilder();
+                            for(Player ply: discordia.getServer().getOnlinePlayers()) {
+                                players.append(ply.getName());
+                                players.append(" ");
+                            }
+                            event.getChannel().sendMessage("Current players: " + players).queue();
+                            break;
+                        case "help":
+                            event.getChannel().sendMessage("Available commands: help, players").queue();
+                            break;
+                    }
+                    return;
                 }
-                return;
             }
-
 
             List<String> ignoreStartWith = discordia.getConfig().getStringList("ignore_starts_with");
 
