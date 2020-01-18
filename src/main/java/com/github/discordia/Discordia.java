@@ -60,8 +60,6 @@ public class Discordia extends JavaPlugin {
             getLogger().info("Connected to discord.");
             stopped = false;
 
-            jda.getGuildById(1).retrieveWebhooks()
-
             return true;
         } catch (InterruptedException | LoginException e) {
             getLogger().warning("Unable to login to discord, please edit the plugin configuration and add a discord bot token.");
