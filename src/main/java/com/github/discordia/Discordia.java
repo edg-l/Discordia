@@ -1,10 +1,11 @@
 package com.github.discordia;
 
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.milkbowl.vault.chat.Chat;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,42 +15,56 @@ import javax.security.auth.login.LoginException;
 public class Discordia extends JavaPlugin {
     private JDA jda;
     private volatile boolean stopped = true;
-    private static Discordia instance;
     private boolean vault_found = false;
     private static Chat chat = null;
 
     @Override
     public void onEnable() {
-        instance = this;
+        Metrics metrics = new Metrics(this);
+
         saveDefaultConfig();
         reloadConfig();
 
-        if (getServer().getPluginManager().getPlugin("Vault") != null) {
-            vault_found = true;
+        boolean usesChatProvider = false;
 
+        if (getServer().getPluginManager().getPlugin("Vault") != null) {
             RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-            chat = rsp.getProvider();
+            if(rsp != null) {
+                vault_found = true;
+                chat = rsp.getProvider();
+                getLogger().info("Using Vault chat provider.");
+                usesChatProvider = true;
+            }
         }
 
-        getCommand("discordia").setExecutor(new CommandHandler());
+        String pieValue = usesChatProvider ? "yes" : "no";
+        metrics.addCustomChart(new Metrics.SimplePie("vault_chat", () -> pieValue));
+
+        getCommand("discordia").setExecutor(new CommandHandler(this));
         getCommand("discordia").setTabCompleter(new AutoCompleter());
 
-        connectDiscord();
-        getServer().getPluginManager().registerEvents(new ChatListener(), this);
-        getServer().getPluginManager().registerEvents(new EventListener(), this);
+        if(!connectDiscord()) {
+            getLogger().warning("Plugin disabled, fix your configuration.");
+            getPluginLoader().disablePlugin(this);
+        }
+        getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        getServer().getPluginManager().registerEvents(new EventListener(this), this);
     }
 
     boolean connectDiscord() {
         try {
             jda = new JDABuilder(AccountType.BOT)
                     .setToken(this.getConfig().getString("token"))
-                    .addEventListener(new DiscordListener(this))
+                    .addEventListeners(new DiscordListener(this))
                     .build().awaitReady();
-            this.getLogger().info("Connected to discord.");
+            getLogger().info("Connected to discord.");
             stopped = false;
+
+            jda.getGuildById(1).retrieveWebhooks()
+
             return true;
         } catch (InterruptedException | LoginException e) {
-            this.getLogger().warning("Unable to login to discord, please edit the plugin configuration and add a discord bot token.");
+            getLogger().warning("Unable to login to discord, please edit the plugin configuration and add a discord bot token.");
             return false;
         }
 
@@ -69,7 +84,20 @@ public class Discordia extends JavaPlugin {
      */
     void sendToDiscord(String message) {
         if (jda != null) {
-            TextChannel channel = jda.getTextChannelById(getConfig().getString("send_channel"));
+            String id = getConfig().getString("send_channel");
+
+            if(id == null) {
+                getLogger().warning("'send_channel' is null, message could not be sent.");
+                return;
+            }
+
+            TextChannel channel = jda.getTextChannelById(id);
+
+            if(channel == null) {
+                getLogger().warning("'send_channel' channel not found, message could not be sent.");
+                return;
+            }
+
             channel.sendMessage(message).queue();
         }
     }
@@ -77,10 +105,6 @@ public class Discordia extends JavaPlugin {
     @Override
     public void onDisable() {
         disconnectDiscord();
-    }
-
-    public static Discordia getInstance() {
-        return instance;
     }
 
     public JDA getJDA() {

@@ -9,17 +9,24 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class EventListener implements Listener {
+    private Discordia discordia;
+
+    public EventListener(Discordia discordia) {
+        super();
+        this.discordia = discordia;
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if(Discordia.getInstance().getConfig().getBoolean("enable_join_event")) {
-            Discordia.getInstance().sendToDiscord(ChatColor.stripColor(event.getJoinMessage()));
+        if(discordia.getConfig().getBoolean("enable_join_event")) {
+            discordia.sendToDiscord(ChatColor.stripColor(event.getJoinMessage()));
         }
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-        if(Discordia.getInstance().getConfig().getBoolean("enable_leave_event")) {
-            Discordia.getInstance().sendToDiscord(ChatColor.stripColor(event.getQuitMessage()));
+        if(discordia.getConfig().getBoolean("enable_leave_event")) {
+            discordia.sendToDiscord(ChatColor.stripColor(event.getQuitMessage()));
         }
     }
 
@@ -27,15 +34,15 @@ public class EventListener implements Listener {
     public void onPlayerKick(PlayerKickEvent event) {
         if(event.isCancelled())
             return;
-        if(Discordia.getInstance().getConfig().getBoolean("enable_kick_event")) {
-            Discordia.getInstance().sendToDiscord(ChatColor.stripColor(event.getLeaveMessage()));
+        if(discordia.getConfig().getBoolean("enable_kick_event")) {
+            discordia.sendToDiscord(ChatColor.stripColor(event.getLeaveMessage()));
         }
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if(Discordia.getInstance().getConfig().getBoolean("enable_player_death_event")) {
-            Discordia.getInstance().sendToDiscord(ChatColor.stripColor(event.getDeathMessage()));
+        if(discordia.getConfig().getBoolean("enable_player_death_event")) {
+            discordia.sendToDiscord(ChatColor.stripColor(event.getDeathMessage()));
         }
     }
 }
