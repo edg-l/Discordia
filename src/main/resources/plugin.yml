@@ -1,6 +1,6 @@
 main: com.github.discordia.Discordia
 name: Discordia
-version: 1.4.0
+version: 1.4.1
 author: Ryozuki
 softdepend: [Vault]
 description: Creates a bridge between discord and minecraft chat.
