@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 
 
 public class CommandHandler implements CommandExecutor {
-    private Discordia discordia;
+    private final Discordia discordia;
 
     public CommandHandler(Discordia discordia) {
         super();
