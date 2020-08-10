@@ -4,6 +4,7 @@
 
 ## Permissions
 - discordia.chat.send: Only players with this permission will send messages to discord.
+- discordia.chat.metion: Whether or not the user can @mention people on discord. On by default.
 - discordia.commands: (Recommended only for admins) Allows the usage of discordia commands (See /discordia).
 
 ## Setup the discord bot
