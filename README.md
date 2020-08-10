@@ -1,4 +1,5 @@
 # Discordia (Spigot plugin)
+![Java CI with Maven](https://github.com/edg-l/Discordia/workflows/Java%20CI%20with%20Maven/badge.svg)
 > Creates a bridge between discord and minecraft chat.
 
 ## Permissions
