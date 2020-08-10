@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatListener implements Listener {
-    private Pattern discordPattern = Pattern.compile("(@[^# ]{2,32})");
-    private Discordia discordia;
+    private final Pattern discordPattern = Pattern.compile("(@[^# ]{2,32})");
+    private final Discordia discordia;
 
     public ChatListener(Discordia discordia) {
         super();
@@ -47,7 +47,7 @@ public class ChatListener implements Listener {
                 return;
         }
 
-        if (event.getPlayer().hasPermission("discordia.mention")) {
+        if (event.getPlayer().hasPermission("discordia.chat.mention")) {
             Matcher m = discordPattern.matcher(message);
             while (m.find()) {
                 List<User> users = discordia.getJDA().getUsersByName(m.group(1).substring(1), true);

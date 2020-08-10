@@ -1,8 +1,8 @@
 package xyz.ryozuki.minecraft.discordia;
 
-import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.milkbowl.vault.chat.Chat;
 import org.bstats.bukkit.Metrics;
@@ -10,12 +10,13 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
+import java.text.MessageFormat;
 
 
 public class Discordia extends JavaPlugin {
-    private JDA jda;
+    private JDA jda = null;
     private volatile boolean stopped = true;
-    private boolean vault_found = false;
+    private boolean vaultFound = false;
     private static Chat chat = null;
 
     @Override
@@ -29,8 +30,8 @@ public class Discordia extends JavaPlugin {
 
         if (getServer().getPluginManager().getPlugin("Vault") != null) {
             RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-            if(rsp != null) {
-                vault_found = true;
+            if (rsp != null) {
+                vaultFound = true;
                 chat = rsp.getProvider();
                 getLogger().info("Using Vault chat provider.");
                 usesChatProvider = true;
@@ -43,9 +44,10 @@ public class Discordia extends JavaPlugin {
         getCommand("discordia").setExecutor(new CommandHandler(this));
         getCommand("discordia").setTabCompleter(new AutoCompleter());
 
-        if(!connectDiscord()) {
+        if (!connectDiscord()) {
             getLogger().warning("Plugin disabled, fix your configuration.");
             getPluginLoader().disablePlugin(this);
+            return;
         }
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
         getServer().getPluginManager().registerEvents(new EventListener(this), this);
@@ -53,16 +55,17 @@ public class Discordia extends JavaPlugin {
 
     boolean connectDiscord() {
         try {
-            jda = new JDABuilder(AccountType.BOT)
-                    .setToken(this.getConfig().getString("token"))
-                    .addEventListeners(new DiscordListener(this))
-                    .build().awaitReady();
+            JDABuilder builder = JDABuilder.createDefault(this.getConfig().getString("token"));
+            builder.addEventListeners(new DiscordListener(this));
+            builder.setActivity(Activity.playing(MessageFormat.format("{0}help",
+                    getConfig().getString("command_prefix"))));
+            jda = builder.build();
             getLogger().info("Connected to discord.");
             stopped = false;
-
             return true;
-        } catch (InterruptedException | LoginException e) {
-            getLogger().warning("Unable to login to discord, please edit the plugin configuration and add a discord bot token.");
+        } catch (LoginException e) {
+            getLogger().warning("Unable to login to discord, please edit the plugin " +
+                    "configuration and add a discord bot token.");
             return false;
         }
 
@@ -72,6 +75,7 @@ public class Discordia extends JavaPlugin {
         stopped = true;
         if (jda != null) {
             jda.shutdown();
+            jda = null;
         }
     }
 
@@ -84,14 +88,14 @@ public class Discordia extends JavaPlugin {
         if (jda != null) {
             String id = getConfig().getString("send_channel");
 
-            if(id == null) {
+            if (id == null) {
                 getLogger().warning("'send_channel' is null, message could not be sent.");
                 return;
             }
 
             TextChannel channel = jda.getTextChannelById(id);
 
-            if(channel == null) {
+            if (channel == null) {
                 getLogger().warning("'send_channel' channel not found, message could not be sent.");
                 return;
             }
@@ -118,7 +122,7 @@ public class Discordia extends JavaPlugin {
     }
 
     public boolean isVaultFound() {
-        return vault_found;
+        return vaultFound;
     }
 
     public static Chat getChat() {

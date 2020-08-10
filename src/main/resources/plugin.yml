@@ -1,6 +1,6 @@
-main: com.github.discordia.Discordia
+main: xyz.ryozuki.minecraft.discordia.Discordia
 name: Discordia
-version: 1.4.1
+version: ${project.version}
 author: Ryozuki
 softdepend: [Vault]
 description: Creates a bridge between discord and minecraft chat.
@@ -11,7 +11,7 @@ permissions:
   discordia.commands:
     description: Allows the usage of discordia commands.
     default: op
-  discordia.mention:
+  discordia.chat.mention:
     description: Whether or not the user can @mention people on discord.
     default: true
 commands:
