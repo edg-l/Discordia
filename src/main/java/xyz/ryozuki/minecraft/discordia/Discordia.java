@@ -1,4 +1,4 @@
-package com.github.discordia;
+package xyz.ryozuki.minecraft.discordia;
 
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
@@ -20,7 +20,7 @@ public class Discordia extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Metrics metrics = new Metrics(this);
+        Metrics metrics = new Metrics(this, 6289);
 
         saveDefaultConfig();
         reloadConfig();

@@ -1,4 +1,4 @@
-package com.github.discordia;
+package xyz.ryozuki.minecraft.discordia;
 
 import net.dv8tion.jda.api.entities.User;
 import org.bukkit.ChatColor;
