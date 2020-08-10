@@ -1,4 +1,4 @@
-package com.github.discordia;
+package xyz.ryozuki.minecraft.discordia;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
