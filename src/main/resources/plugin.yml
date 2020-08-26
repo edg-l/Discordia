@@ -2,6 +2,7 @@ main: xyz.ryozuki.minecraft.discordia.Discordia
 name: Discordia
 version: ${project.version}
 author: Ryozuki
+api-version: "1.16"
 softdepend: [Vault]
 description: Creates a bridge between discord and minecraft chat.
 permissions:
